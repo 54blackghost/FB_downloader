@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FB Video Saver Pro - Download HD Facebook Videos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Premium tool to download Facebook videos in HD quality. Fast, secure, and unlimited downloads.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1877f2;
+            --primary-light: #e7f3ff;
+            --secondary: #42b72a;
+            --accent: #ff7b00;
+            --light: #f0f2f5;
+            --dark: #1c1e21;
+            --gray: #65676b;
+            --error: #ff4757;
+            --success: #2ed573;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 15px 35px rgba(0,0,0,0.2);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .hero {
+            width: 100%;
+            max-width: 680px;
+            perspective: 1000px;
+        }
+
+        .card {
+            background: white;
+            padding: 2.8rem;
+            border-radius: 1.8rem;
+            box-shadow: var(--shadow-lg);
+            transform-style: preserve-3d;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            animation: cardEntrance 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        @keyframes cardEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 1.8rem;
+            position: relative;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.2rem;
+            box-shadow: var(--shadow-md);
+            color: white;
+            font-size: 2.2rem;
+            transition: var(--transition);
+            border: 3px solid white;
+        }
+
+        .logo:hover {
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            margin-bottom: 0.6rem;
+            color: var(--dark);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: var(--gray);
+            font-size: clamp(1.05rem, 2vw, 1.15rem);
+            margin-bottom: 1.8rem;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 500;
+        }
+
+        .divider {
+            height: 4px;
+            width: 100px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            margin: 0 auto 2rem;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .divider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0.8), transparent);
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        form {
+            position: relative;
+            margin-top: 2rem;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 1.8rem;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 0.6rem;
+            color: var(--gray);
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        form input[type="url"] {
+            width: 100%;
+            padding: 1.2rem 1.8rem;
+            border-radius: 14px;
+            border: 2px solid #e0e0e0;
+            font-size: 1.05rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+            background-color: white;
+            color: var(--dark);
+            padding-right: 3.5rem;
+        }
+
+        form input[type="url"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--primary-light);
+            outline: none;
+            transform: translateY(-3px);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+        form input[type="url"]:focus + .input-icon {
+            color: var(--primary);
+            transform: translateY(-50%) scale(1.2);
+            animation: bounce 0.5s;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(-50%) scale(1); }
+            50% { transform: translateY(-50%) scale(1.3); }
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #166fe5, #36a420);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(24, 119, 242, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn i {
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .download-box {
+            margin-top: 2rem;
+            background: white;
+            padding: 1.8rem;
+            border-radius: 14px;
+            border-left: 5px solid var(--accent);
+            box-shadow: var(--shadow-md);
+            transform: translateY(15px);
+            opacity: 0;
+            animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .download-box-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .download-box-header i {
+            color: var(--success);
+            font-size: 1.5rem;
+            margin-right: 0.8rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .download-box-header h3 {
+            color: var(--dark);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .download-btn {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            transition: var(--transition);
+            padding: 1rem 1.8rem;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent), #ff9500);
+            box-shadow: var(--shadow-md);
+            width: 100%;
+            text-align: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(255, 123, 0, 0.3);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        .download-btn i {
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.2rem;
+            margin: 2.5rem 0;
+        }
+
+        .feature {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+            padding: 1.2rem;
+            border-radius: 10px;
+            background: var(--light);
+            transition: var(--transition);
+        }
+
+        .feature:hover {
+            background: var(--primary-light);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature i {
+            margin-bottom: 0.8rem;
+            font-size: 1.8rem;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .feature:hover i {
+            transform: scale(1.1);
+        }
+
+        .feature-title {
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            color: var(--dark);
+            font-size: 1rem;
+        }
+
+        .feature-desc {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 2.5rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.8rem;
+            margin-top: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--gray);
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: var(--primary);
+        }
+
+        .footer-link:hover::after {
+            width: 100%;
+        }
+
+        /* Messages */
+        .messages {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .message {
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .message.error {
+            background-color: var(--error-light);
+            color: var(--error);
+            border-left: 4px solid var(--error);
+        }
+
+        .message.success {
+            background-color: var(--success-light);
+            color: var(--success);
+            border-left: 4px solid var(--success);
+        }
+
+        .message i {
+            margin-right: 0.7rem;
+            font-size: 1.1rem;
+        }
+
+        /* Developer profile */
+        .developer-profile {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+        }
+
+        .developer-toggle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            border: 3px solid white;
+        }
+
+        .developer-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+        }
+
+        .developer-card {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 320px;
+            background: white;
+            border-radius: 1.2rem;
+            padding: 1.8rem;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .developer-card.active {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .developer-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.2rem;
+        }
+
+        .developer-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.2rem;
+            border: 3px solid white;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .developer-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .developer-avatar::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(24, 119, 242, 0.4), rgba(66, 183, 42, 0.4));
+            z-index: 1;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .developer-avatar:hover::before {
+            background: linear-gradient(135deg, rgba(24, 119, 242, 0.2), rgba(66, 183, 42, 0.2));
+        }
+
+        .developer-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .developer-name {
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.3rem;
+            font-size: 1.2rem;
+        }
+
+        .developer-title {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .developer-bio {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+        }
+
+        .developer-socials {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.2rem;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--gray);
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .social-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .social-name {
+            font-size: 0.8rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .card {
+                padding: 2rem;
+                border-radius: 1.2rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .subtitle {
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            form input[type="url"], .btn {
+                padding: 1.1rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .developer-profile {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .developer-toggle {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+            
+            .developer-card {
+                width: 280px;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="card">
+            <div class="card-header">
+                <div class="logo">
+                    <i class="fab fa-facebook-f"></i>
+                </div>
+                <h1>Facebook Video Downloader Pro</h1>
+                <p class="subtitle">Download HD Photos/videos from Facebook instantly with our premium tool</p>
+                <div class="divider"></div>
+            </div>
+
+            <!-- Flash messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul class="messages">
+                        {% for category, message in messages %}
+                            <li class="message {{ category }}">
+                                <i class="fas fa-{% if category == 'success' %}check-circle{% else %}exclamation-circle{% endif %}"></i>
+                                {{ message }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-bolt"></i>
+                    <div class="feature-title">Ultra Fast</div>
+                    <div class="feature-desc">Downloads in seconds</div>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <div class="feature-title">Secure</div>
+                    <div class="feature-desc">No data stored</div>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-infinity"></i>
+                    <div class="feature-title">Unlimited</div>
+                    <div class="feature-desc">No daily limits</div>
+                </div>
+            </div>
+
+            <form method="POST" id="downloadForm">
+                <div class="input-group">
+                    <label for="videoUrl" class="input-label">Facebook Video URL</label>
+                    <input type="url" id="videoUrl" name="video_url" placeholder="https://www.facebook.com/ma4D1/...." required>
+                    <i class="fas fa-link input-icon"></i>
+                </div>
+                <button type="submit" class="btn" id="submitBtn">
+                    <i class="fas fa-download"></i> Download Now
+                </button>
+            </form>
+
+            {% if download_link %}
+            <div class="download-box animate__animated animate__pulse animate__infinite animate__slower">
+                <div class="download-box-header">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Your video is ready!</h3>
+                </div>
+                <a href="{{ download_link }}" download class="download-btn" id="downloadLink">
+                    <i class="fas fa-cloud-download-alt"></i> Download Video (HD)
+                </a>
+            </div>
+            {% endif %}
+
+            <div class="footer">
+                <p>© 2025 FB Video Saver Pro. Dedicated to mother.</p>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                    <a href="https://www.facebook.com/ma4D1" class="footer-link">Contact Support</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="developer-profile">
+        <button class="developer-toggle" id="devToggle">
+            <i class="fas fa-user"></i>
+        </button>
+        <div class="developer-card" id="devCard">
+            <div class="developer-header">
+                <div class="developer-avatar">
+                    <img src="https://avatars.githubusercontent.com/u/102132190?v=4" alt="Ulrich leblack" onerror="this.onerror=null; this.textContent='MH'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center';">
+                </div>
+                <div>
+                    <div class="developer-name">Ulrich leblack</div>
+                    <div class="developer-title">Python Automission Developer</div>
+                </div>
+            </div>
+            <div class="developer-bio">
+                Creator of FB Video Saver Pro. Passionate about building tools that make life easier.
+            </div>
+            <div class="developer-socials">
+                <a href="https://www.linkedin.com/in/ulrich-leblack-7a803220a/" class="social-link" target="_blank">
+                    <i class="fab fa-linkedin social-icon"></i>
+                    <span class="social-name">linkedin</span>
+                </a>
+                <a href="https://wa.me/+8801616397082" class="social-link" target="_blank">
+                    <i class="fab fa-whatsapp social-icon"></i>
+                    <span class="social-name">WhatsApp</span>
+                </a>
+                <a href="https://github.com/54blackghost" class="social-link" target="_blank">
+                    <i class="fab fa-github social-icon"></i>
+                    <span class="social-name">GitHub</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('downloadForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const input = document.querySelector('input[type="url"]');
+            const downloadBox = document.getElementById('downloadBox');
+            const downloadLink = document.getElementById('downloadLink');
+            const devToggle = document.getElementById('devToggle');
+            const devCard = document.getElementById('devCard');
+            
+            // Focus animation for input
+            setTimeout(() => {
+                input.focus();
+                input.classList.add('animate__animated', 'animate__pulse');
+                setTimeout(() => {
+                    input.classList.remove('animate__animated', 'animate__pulse');
+                }, 1000);
+            }, 500);
+            
+            // Form submission
+            if (form) {
+                form.addEventListener('submit', function() {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                });
+            }
+            
+            // Developer panel toggle
+            devToggle.addEventListener('click', function() {
+                devCard.classList.toggle('active');
+                this.innerHTML = devCard.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-user"></i>';
+            });
+            
+            // Close dev panel when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!devCard.contains(e.target) && e.target !== devToggle) {
+                    devCard.classList.remove('active');
+                    devToggle.innerHTML = '<i class="fas fa-user"></i>';
+                }
+            });
+            
+            // Responsive adjustments
+            function adjustLayout() {
+                const featuresContainer = document.querySelector('.features');
+                if (window.innerWidth < 480) {
+                    featuresContainer.style.gridTemplateColumns = '1fr';
+                } else if (window.innerWidth < 768) {
+                    featuresContainer.style.gridTemplateColumns = '1fr 1fr';
+                } else {
+                    featuresContainer.style.gridTemplateColumns = 'repeat(auto-fit, minmax(150px, 1fr))';
+                }
+            }
+            
+            window.addEventListener('resize', adjustLayout);
+            adjustLayout();
+        });
+    </script>
+</body>
+</html>
